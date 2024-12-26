@@ -33,8 +33,8 @@ def main(nbits, batch):
   errors = [torch.norm(orig_weights[i]-new_layers[i].weight).item() for i in range(len(orig_weights))]
 
   # generate 100 images for clip:
-  coco_data = load_data('/home/mdnikolaev/philurame/SDXL_METRICS/DATA', 'COCO', 1100)
-  fake_latents = generate(pipe, coco_data.anns[batch*100:(batch+1)*100], nfe=50)
+  coco_anns = load_data('/home/mdnikolaev/philurame/SDXL_METRICS/DATA', 'COCO', 2100).anns[batch*100:(batch+1)*100]
+  fake_latents = generate(pipe, coco_anns, nfe=50)
 
   # log
   with open(f'/home/mdnikolaev/philurame/Experiments/QuantizationClip/RES/{nbits}_{batch}.pkl', 'wb') as f:
